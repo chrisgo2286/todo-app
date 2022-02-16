@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import TaskList from './components/taskList'
+import TaskInput from './components/taskInput'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  state = {
+    tasks: [
+      { value: 'Buy milk'},
+      { value: 'Pay tithe'},
+      { value: 'Get oil change'}
+    ]
+  }
+
+  handleSubmit = (value) => {
+    const newTask = { 'value': value}
+    const tasks = [...this.state.tasks, newTask]
+    this.setState({ tasks })
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <TaskInput 
+          onSubmit={this.handleSubmit}
+        />
+        <TaskList 
+          tasks={this.state.tasks}
+        />
+      </React.Fragment>
+    )  
+  }
 }
-
 export default App;
