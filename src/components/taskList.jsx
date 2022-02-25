@@ -9,9 +9,9 @@ class TaskList extends Component {
    	    <ul>{ this.props.tasks.map((task, ndx) => (
    	      <TaskItem
    	        key={ndx}
-   	        task={task}>
-   	        {task.value}
-   	      </TaskItem>
+   	        task={task}
+            onChange={this.props.onChange}
+          />
    	      ))}
    	    </ul>
   	  </React.Fragment>

@@ -3,33 +3,77 @@ import './App.css';
 import TaskList from './components/taskList'
 import TaskInput from './components/taskInput'
 
-
 class App extends Component {
   state = {
+
+    lastid: 3,
+    
+    fields: {
+      task:'',
+      date:'',
+    },
+
     tasks: [
-      { value: 'Buy milk'},
-      { value: 'Pay tithe'},
-      { value: 'Get oil change'}
+      { id: 1, task: 'Buy milk', date: '2022-02-01', completed: 'off'},
+      { id: 2, task: 'Pay tithe', date: '2022-02-04', completed: 'off'},
+      { id: 3, task: 'Get oil change', date: '2022-02-09', completed: 'off'},
     ]
   }
 
-  handleSubmit = (value) => {
-    const newTask = { 'value': value}
-    const tasks = [...this.state.tasks, newTask]
+  handleChange = (event) => {
+    const fields = this.state.fields;
+    fields[event.target.name] = event.target.value;
+    this.setState({ fields })
+  }
+
+  handleSubmit = (event) => {
+    const fields = this.state.fields;
+    fields['completed'] = 'off';
+    fields['id'] = this.state.lastid + 1;
+    const lastid = this.state.lastid + 1;
+    this.setState({ lastid })
+    const tasks = [...this.state.tasks, fields]
+    this.setState({
+      tasks,
+      fields: {
+        task: '',
+        date: '',
+        completed: 'off',
+      }  
+    })
+    event.preventDefault();
+  }
+
+  handleTaskListChange = (event) => {
+    const tasks = [...this.state.tasks];
+    const category = event.target.name;
+    for(var i=0; i < this.state.tasks.length; i++) {
+      if(tasks[i].id == event.target.id) {
+        if(event.target.name === 'completed') {
+          tasks[i].completed = tasks[i].completed === 'on' ? 'off' : 'on';
+        }
+        else {
+          tasks[i][event.target.name] = event.target.value;
+        }
     this.setState({ tasks })
+      }
+    }
   }
 
   render() {
     return (
       <React.Fragment>
-        <TaskInput 
+        <TaskInput
+          fields={this.state.fields}
+          onChange={this.handleChange} 
           onSubmit={this.handleSubmit}
         />
         <TaskList 
           tasks={this.state.tasks}
+          onChange={this.handleTaskListChange}
         />
       </React.Fragment>
-    )  
+    ) 
   }
 }
 export default App;
