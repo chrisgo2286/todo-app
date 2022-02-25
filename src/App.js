@@ -6,7 +6,7 @@ import TaskInput from './components/taskInput'
 class App extends Component {
   state = {
 
-    lastid: 3,
+    lastid: 4,
     
     fields: {
       task:'',
@@ -14,9 +14,9 @@ class App extends Component {
     },
 
     tasks: [
-      { id: 1, task: 'Buy milk', date: '2022-02-01', completed: 'off'},
-      { id: 2, task: 'Pay tithe', date: '2022-02-04', completed: 'off'},
-      { id: 3, task: 'Get oil change', date: '2022-02-09', completed: 'off'},
+      { id: 2, task: 'Buy milk', date: '2022-02-01', completed: 'off'},
+      { id: 3, task: 'Pay tithe', date: '2022-02-04', completed: 'off'},
+      { id: 4, task: 'Get oil change', date: '2022-02-09', completed: 'off'},
     ]
   }
 
