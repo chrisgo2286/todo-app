@@ -38,7 +38,6 @@ class App extends Component {
       fields: {
         task: '',
         date: '',
-        completed: 'off',
       }  
     })
     event.preventDefault();
