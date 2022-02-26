@@ -13,6 +13,8 @@ class App extends Component {
       date:'',
     },
 
+    fieldErrors: {},
+
     tasks: [
       { id: 2, task: 'Buy milk', date: '2022-02-01', completed: 'off'},
       { id: 3, task: 'Pay tithe', date: '2022-02-04', completed: 'off'},
@@ -28,6 +30,12 @@ class App extends Component {
 
   handleSubmit = (event) => {
     const fields = this.state.fields;
+    const fieldErrors = this.validate(fields)
+    this.setState({ fieldErrors });
+    event.preventDefault();
+
+    if (Object.keys(fieldErrors).length) return;
+
     fields['completed'] = 'off';
     fields['id'] = this.state.lastid + 1;
     const lastid = this.state.lastid + 1;
@@ -40,7 +48,12 @@ class App extends Component {
         date: '',
       }  
     })
-    event.preventDefault();
+  }
+
+  validate = (fields) => {
+	  const errors = {};
+	  if (!fields.task) errors.name = 'Task Required';
+    return errors;
   }
 
   handleTaskListChange = (event) => {
@@ -64,6 +77,7 @@ class App extends Component {
       <React.Fragment>
         <TaskInput
           fields={this.state.fields}
+          fieldErrors={this.state.fieldErrors}
           onChange={this.handleChange} 
           onSubmit={this.handleSubmit}
         />

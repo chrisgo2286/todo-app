@@ -23,7 +23,12 @@ class TaskInput extends Component {
   	          value={this.props.fields.task}
   	          onChange={this.handleChange} />
   	      </label>
-          <label>
+		  
+		  <span style={{ color: 'red' }}>{ this.props.fieldErrors.name }</span>
+
+		  <br />	
+          
+		  <label>
             Date:
             <input 
               type='date'
